@@ -15,11 +15,14 @@
 package cmd
 
 import (
-	"github.com/spf13/viper"
+	// "github.com/spf13/viper"
 	"github.com/spf13/cobra"
+	"fmt"
+	"clf/zone"
 )
 
 // zoneCmd represents the zone command
+var listZoneCmd = zone.ListZoneCmd
 var zoneCmd = &cobra.Command{
 	Use:   "zone",
 	Short: "Action with zones on cloudflare",
@@ -33,25 +36,9 @@ Select a domain that you want to manage`,
 
 func init() {
 	rootCmd.AddCommand(zoneCmd)
-
-	// Define flags for sub-command
-	zoneCmd.Flags().StringP("list", "l", "", "List all your zones")
-	zoneCmd.Flags().StringP("detail", "i", "", "Zone details")
-	zoneCmd.Flags().StringP("edit", "e", "", "Edit Zone properties")
-	zoneCmd.Flags().StringP("purge", "p", "", "Purge cache on your zone")
-	zoneCmd.Flags().StringP("delete", "", "", "Delete an existing zone")
-
-	// // Parse arg to viper
-	// viper.BindPFlag("create_cluster_name", zoneCmd.Flags().Lookup("name"))
-	// viper.BindPFlag("key", zoneCmd.Flags().Lookup("key"))
-	// viper.BindPFlag("volume-size", zoneCmd.Flags().Lookup("volume-size"))
-	// viper.BindPFlag("flavor", zoneCmd.Flags().Lookup("flavor"))
-	// viper.BindPFlag("persistent-volume-size", zoneCmd.Flags().Lookup("persistent-volume-size"))
-	// viper.BindPFlag("cluster-size", zoneCmd.Flags().Lookup("cluster-size"))
+	zoneCmd.AddCommand(listZoneCmd)
 }
 
 func getZone() {
-
-	zone.ListZones()
-
+	fmt.Println("test")
 }

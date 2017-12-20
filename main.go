@@ -14,7 +14,10 @@
 
 package main
 
-import "clf/cmd"
+import (
+	"clf/cmd"
+)
+
 
 func main() {
 	cmd.Execute()
