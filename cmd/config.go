@@ -57,7 +57,7 @@ func writeConfig(cfEmail string, cfKey string) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	content := []byte("accounts:\n- EMAIL: "+ cfEmail +"\n  KEY: "+ cfKey)
+	content := []byte("EMAIL: "+ cfEmail +"\nKEY: "+ cfKey)
 	err2 := ioutil.WriteFile(home + cfgFile, content, 0644)
 	check(err2)
 	fmt.Println("\nYour Configuration is created!")
