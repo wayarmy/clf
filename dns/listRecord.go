@@ -12,35 +12,66 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd
+package dns
 
 import (
-	"fmt"
-
+	"strconv"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"clf/authen"
+	"github.com/cloudflare/cloudflare-go"
+	"log"
 )
 
+var ttl string
 // listRecordCmd represents the listRecord command
-var listRecordCmd = &cobra.Command{
+var ListRecordCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "List records of an existing zone",
 	Long: `List records of an existing zone on Cloudflare. For example:
 	clf dns ls --zone example.com`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("listRecord called")
+		list_record()
 	},
 }
 
 func init() {
-	dnsCmd.AddCommand(listRecordCmd)
+	ListRecordCmd.Flags().StringP("zone", "z", "", "Specific zone that you want to list DNS record")
 
-	// Here you will define your flags and configuration settings.
+	// Parse arg to viper
+	viper.BindPFlag("zoneName", ListRecordCmd.Flags().Lookup("zone"))
+}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// listRecordCmd.PersistentFlags().String("foo", "", "A help for foo")
+func list_record() {
+	authen.Login()
+	api := authen.Api
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// listRecordCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	zoneName := viper.GetString("zoneName")
+
+	zoneID, err := api.ZoneIDByName(zoneName)
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	recs, err := api.DNSRecords(zoneID, cloudflare.DNSRecord{})
+	if err != nil {
+	    log.Fatal(err)
+	}
+
+	output := make([][]string, 0, len(recs))
+	for _, r := range recs {
+		if strconv.FormatInt(int64(r.TTL), 10) == "1" {
+			ttl = "Automation"
+		} else {
+			ttl = strconv.FormatInt(int64(r.TTL), 10)
+		}
+		output = append(output, []string{
+			r.Type,
+			r.Name,
+			r.Content,
+			ttl,
+			strconv.FormatBool(r.Proxied),
+		})
+	}
+	authen.WriteTable(output, "Type", "Name", "Content", "TTL", "Proxied")
 }
