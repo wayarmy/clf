@@ -14,7 +14,7 @@ var cfApiEmail string
 var cfApiKey string
 var cfgFile string
 var Api *cloudflare.API
-func init() {
+func Login () {
 	initConfig()
 	initCredential()
 }
