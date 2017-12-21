@@ -1,6 +1,7 @@
 package authen
 
 import (
+	"github.com/pkg/errors"
 	"fmt"
 	"os"
 	"github.com/olekukonko/tablewriter"
@@ -58,7 +59,8 @@ func initConfig() {
 		cfApiEmail = viper.Get("EMAIL").(string)
 		cfApiKey = viper.Get("KEY").(string)
 	} else {
-		fmt.Println("Cannot find the credential config, please run `clf config create` to create new credential config")
+		err := errors.Errorf("Cannot find the credential config, please run `clf config create` to create new credential config")
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(0)
 	}
 }

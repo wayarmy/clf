@@ -11,6 +11,7 @@ import (
 
 // dnsCmd represents the dns command
 var ListRecordCmd = dns.ListRecordCmd
+var CreateRecordCmd = dns.CreateRecordCmd
 var dnsCmd = &cobra.Command{
 	Use:   "dns",
 	Short: "A Cloudflare DNS manager CLI",
@@ -24,4 +25,5 @@ var dnsCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(dnsCmd)
 	dnsCmd.AddCommand(ListRecordCmd)
+	dnsCmd.AddCommand(CreateRecordCmd)
 }
