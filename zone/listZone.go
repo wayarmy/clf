@@ -11,9 +11,9 @@ import (
 
 // listZoneCmd represents the listZone command
 
-var api = authen.Api
+// var api = authen.Api
 var ListZoneCmd = &cobra.Command{
-	Use:   "listZone",
+	Use:   "ls",
 	Short: "List all zones in your account",
 	Long: `ListZone: 
 	List all zones (sites) in your account`,
@@ -23,6 +23,8 @@ var ListZoneCmd = &cobra.Command{
 }
 
 func listZone() {
+	authen.Login()
+	api := authen.Api
 	zones, err := api.ListZones()
 	if err != nil {
 	    log.Fatal(err)

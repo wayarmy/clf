@@ -23,13 +23,10 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "clf",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Cloudflare CLI",
+	Long: `This CLI will help you manage Cloudflare resource, such as DNS record, Zone..
+	Example:
+		clf dns create record dns --type A --address --zone example.com --enable-cloud`,
 }
 
 func Execute() {
