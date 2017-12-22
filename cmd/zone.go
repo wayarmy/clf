@@ -40,5 +40,5 @@ func init() {
 }
 
 func getZone() {
-	fmt.Println("test")
+	fmt.Println("Zone")
 }
