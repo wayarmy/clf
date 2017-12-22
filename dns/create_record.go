@@ -1,4 +1,4 @@
-// List all Record with specific zone
+// Create new record with specific zone
 package dns
 
 import (
@@ -29,7 +29,7 @@ func init() {
 	CreateRecordCmd.Flags().StringP("name", "n", "", "Your record name")
 	CreateRecordCmd.Flags().StringP("content", "c", "", "Your record address")
 	CreateRecordCmd.Flags().IntP("ttl", "", 120,"Your record's TTL, default Cloudflare Automation")
-	CreateRecordCmd.Flags().Bool("enable-proxy", true,"Enable proxy for your record, default enabled")
+	CreateRecordCmd.Flags().Bool("enable-proxy", false,"Enable proxy for your record, default enabled")
 
 	// Parse arg to viper
 	viper.BindPFlag("zone", CreateRecordCmd.Flags().Lookup("zone"))

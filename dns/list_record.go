@@ -10,7 +10,6 @@ import (
 	"log"
 )
 
-var ttl string
 // listRecordCmd represents the listRecord command
 var ListRecordCmd = &cobra.Command{
 	Use:   "ls",
@@ -30,6 +29,7 @@ func init() {
 }
 
 func listRecord() {
+	var ttl string
 	authen.Login()
 	api := authen.Api
 
@@ -53,6 +53,7 @@ func listRecord() {
 			ttl = strconv.FormatInt(int64(r.TTL), 10)
 		}
 		output = append(output, []string{
+			r.ID,
 			r.Type,
 			r.Name,
 			r.Content,
@@ -60,5 +61,5 @@ func listRecord() {
 			strconv.FormatBool(r.Proxied),
 		})
 	}
-	authen.WriteTable(output, "Type", "Name", "Content", "TTL", "Proxied")
+	authen.WriteTable(output, "ID", "Type", "Name", "Content", "TTL", "Proxied")
 }
