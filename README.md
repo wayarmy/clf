@@ -30,7 +30,7 @@ Use "clf [command] --help" for more information about a command.
 
 ### Contributing
 
-- `CLF CLI` use [Cloudflare SDK](https://github.com/cloudflare/cloudflare-go.
+- `CLF CLI` use [Cloudflare SDK](https://github.com/cloudflare/cloudflare-go)
 
 - If you want to modify or custom some features, please send me a pull request. Thanks.
 
