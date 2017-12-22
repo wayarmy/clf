@@ -26,7 +26,7 @@ var rootCmd = &cobra.Command{
 	Short: "Cloudflare CLI",
 	Long: `This CLI will help you manage Cloudflare resource, such as DNS record, Zone..
 	Example:
-		clf dns create record dns --type A --address --zone example.com --enable-cloud`,
+		clf dns create record dns --type A --address --zone example.com --enable-proxy true`,
 }
 
 func Execute() {
