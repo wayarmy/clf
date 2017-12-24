@@ -1,8 +1,9 @@
 package: clf
 import:
+- package: github.com/Sirupsen/logrus
 - package: github.com/cloudflare/cloudflare-go
-  version: ^0.8.4
 - package: github.com/mitchellh/go-homedir
 - package: github.com/olekukonko/tablewriter
+- package: github.com/pkg/errors
 - package: github.com/spf13/cobra
 - package: github.com/spf13/viper

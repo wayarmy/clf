@@ -1,4 +1,5 @@
-# CLF - CLI
+![Build](https://travis-ci.org/wayarmy/clf.svg?branch=master)
+# CLF
 
 > Cloudflare CLI, you can use this cli for manage your resource on cloudflare CDN
 
