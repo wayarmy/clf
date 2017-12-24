@@ -50,12 +50,13 @@ func checkUpdateRequire() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(0)
 	}
+	return
 }
 
 func diffRecord(oldRec cloudflare.DNSRecord) cloudflare.DNSRecord {
 	var (
 		ttl2 int
-		proxied bool
+		// proxied bool
 		content string
 	)
 	if oldRec.Content != viper.GetString("content") {
@@ -64,11 +65,11 @@ func diffRecord(oldRec cloudflare.DNSRecord) cloudflare.DNSRecord {
 		content = oldRec.Content
 	}
 
-	if oldRec.Proxied != viper.GetBool("enable-proxy") && viper.GetBool("enable-proxy") == true {
-		proxied = viper.GetBool("enable-proxy")
-	} else {
-		proxied = oldRec.Proxied
-	}
+	// if oldRec.Proxied != viper.GetBool("enable-proxy") && viper.GetBool("enable-proxy") == true {
+	// 	proxied = viper.GetBool("enable-proxy")
+	// } else {
+	// 	proxied = oldRec.Proxied
+	// }
 
 	if oldRec.TTL != viper.GetInt("ttl") {
 		ttl2 = viper.GetInt("ttl")
@@ -81,7 +82,7 @@ func diffRecord(oldRec cloudflare.DNSRecord) cloudflare.DNSRecord {
 		Type:    oldRec.Type,
 		Content: content,
 		TTL:     ttl2,
-		Proxied: proxied,
+		Proxied: viper.GetBool("enable-proxy"),
 	}
 }
 
