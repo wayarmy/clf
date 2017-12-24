@@ -134,11 +134,7 @@ func updateRecord() {
 	}
 
 	oldRec := findRecordByID(records, viper.GetString("id"))
-	_, errExist := checkRecordExist(oldRec)
-	if errExist != nil {
-		fmt.Fprintln(os.Stderr, "Error editing DNS record: ", errExist)
-		return
-	}
+	checkRecordExist(oldRec)
 
 	record := diffRecord(oldRec)
 	errUpdate := api.UpdateDNSRecord(zoneID, viper.GetString("id"), record)
