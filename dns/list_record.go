@@ -6,8 +6,9 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"clf/authen"
-	"github.com/cloudflare/cloudflare-go"
 	"log"
+	"os"
+	"github.com/cloudflare/cloudflare-go"
 )
 
 // listRecordCmd represents the listRecord command
@@ -28,22 +29,38 @@ func init() {
 	viper.BindPFlag("zoneName", ListRecordCmd.Flags().Lookup("zone"))
 }
 
-func listRecord() {
-	var ttl string
+func getZoneID(zoneName string) (string, error) {
 	authen.Login()
 	api := authen.Api
 
+	zoneID, errZoneID := api.ZoneIDByName(zoneName)
+	if errZoneID != nil {
+		log.Fatal(errZoneID)
+		os.Exit(0)
+	}
+
+	return zoneID, nil
+}
+
+func getListRecord(zoneID string) ([]cloudflare.DNSRecord, error) {
+	authen.Login()
+	api := authen.Api
+
+	records, errRecs := api.DNSRecords(zoneID, cloudflare.DNSRecord{})
+	if errRecs != nil {
+		log.Fatal(errRecs)
+		os.Exit(0)
+	}
+
+	return records, nil
+}
+
+func listRecord() {
 	zoneName := viper.GetString("zoneName")
 
-	zoneID, err := api.ZoneIDByName(zoneName)
-	if err != nil {
-    	log.Fatal(err)
-	}
+	zoneID, _ := getZoneID(zoneName)
 
-	recs, err := api.DNSRecords(zoneID, cloudflare.DNSRecord{})
-	if err != nil {
-	    log.Fatal(err)
-	}
+	recs, _ := getListRecord(zoneID)
 
 	output := make([][]string, 0, len(recs))
 	for _, r := range recs {

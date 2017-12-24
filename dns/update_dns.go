@@ -23,7 +23,7 @@ var UpdateRecordCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Create new record for a zone",
 	Long: `Create new record for a zone. For example:
-	clf dns create --name dns --zone example.com --type A --content 1.2.3.4 --ttl 120 --enable-proxy true`,
+	clf dns create --id xxxyyyzzz --zone example.com --type A --content 1.2.3.4 --ttl 120 --enable-proxy`,
 	Run: func(cmd *cobra.Command, args []string) {
 		updateRecord()
 	},
@@ -108,12 +108,12 @@ func convTTL(ttl int) string{
 	}
 }
 
-func checkRecordExist(record cloudflare.DNSRecord) (bool, error) {
+func checkRecordExist(record cloudflare.DNSRecord){
 	if record.Name == "" {
 		err := errors.Errorf("Cannot find the record with provide id")
-		return false, err
+		log.Fatal(err)
+		os.Exit(0)
 	}
-	return true, nil
 }
 
 func updateRecord() {

@@ -12,12 +12,13 @@ import (
 // dnsCmd represents the dns command
 var ListRecordCmd = dns.ListRecordCmd
 var CreateRecordCmd = dns.CreateRecordCmd
-var UpdateRecordCmd= dns.UpdateRecordCmd
+var UpdateRecordCmd = dns.UpdateRecordCmd
+var DeleteRecordCmd = dns.DeleteRecordCmd
 var dnsCmd = &cobra.Command{
 	Use:   "dns",
 	Short: "A Cloudflare DNS manager CLI",
 	Long: `Cloudflare DNS Manager CLI. For example:
-	clf dns create record dns --type A --address --zone example.com --enable-cloud`,
+	clf dns create --type A --address --zone example.com --enable-cloud`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("dns called")
 	},
@@ -28,4 +29,5 @@ func init() {
 	dnsCmd.AddCommand(ListRecordCmd)
 	dnsCmd.AddCommand(CreateRecordCmd)
 	dnsCmd.AddCommand(UpdateRecordCmd)
+	dnsCmd.AddCommand(DeleteRecordCmd)
 }
