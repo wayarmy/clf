@@ -32,16 +32,16 @@ func init() {
 	CreateRecordCmd.Flags().Bool("enable-proxy", false,"Enable proxy for your record, default enabled")
 
 	// Parse arg to viper
-	viper.BindPFlag("zone", CreateRecordCmd.Flags().Lookup("zone"))
-	viper.BindPFlag("type", CreateRecordCmd.Flags().Lookup("type"))
-	viper.BindPFlag("name", CreateRecordCmd.Flags().Lookup("name"))
-	viper.BindPFlag("content", CreateRecordCmd.Flags().Lookup("content"))
-	viper.BindPFlag("ttl", CreateRecordCmd.Flags().Lookup("ttl"))
-	viper.BindPFlag("enable-proxy", CreateRecordCmd.Flags().Lookup("enable-proxy"))
+	viper.BindPFlag("zoneA", CreateRecordCmd.Flags().Lookup("zone"))
+	viper.BindPFlag("typeA", CreateRecordCmd.Flags().Lookup("type"))
+	viper.BindPFlag("nameA", CreateRecordCmd.Flags().Lookup("name"))
+	viper.BindPFlag("contentA", CreateRecordCmd.Flags().Lookup("content"))
+	viper.BindPFlag("ttlA", CreateRecordCmd.Flags().Lookup("ttl"))
+	viper.BindPFlag("enable-proxyA", CreateRecordCmd.Flags().Lookup("enable-proxy"))
 }
 
 func checkFlagsRequirement() {
-	if viper.GetString("zone") == "" || viper.GetString("type") == "" || viper.GetString("name") == "" || viper.GetString("content") == "" {
+	if viper.GetString("zoneA") == "" || viper.GetString("typeA") == "" || viper.GetString("nameA") == "" || viper.GetString("contentA") == "" {
 		err := errors.Errorf("error: the required flag was empty or not provided")
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(0)
@@ -53,18 +53,18 @@ func createRecord() {
 	authen.Login()
 	api := authen.Api
 
-	zoneID, err := api.ZoneIDByName(viper.GetString("zone"))
+	zoneID, err := api.ZoneIDByName(viper.GetString("zoneA"))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error creating DNS record: ", err)
 		return
 	}
 
 	record := cloudflare.DNSRecord{
-		Name:    viper.GetString("name"),
-		Type:    viper.GetString("type"),
-		Content: viper.GetString("content"),
-		TTL:     viper.GetInt("ttl"),
-		Proxied: viper.GetBool("enable-proxy"),
+		Name:    viper.GetString("nameA"),
+		Type:    viper.GetString("typeA"),
+		Content: viper.GetString("contentA"),
+		TTL:     viper.GetInt("ttlA"),
+		Proxied: viper.GetBool("enable-proxyA"),
 	}
 	resp, err := api.CreateDNSRecord(zoneID, record)
 	if err != nil {
