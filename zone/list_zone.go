@@ -6,7 +6,7 @@ package zone
 import (
 	"log"
 	"github.com/spf13/cobra"
-	"clf/authen"
+	"github.com/wayarmy/clf/authen"
 )
 
 // listZoneCmd represents the listZone command

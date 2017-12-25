@@ -1,7 +1,6 @@
 package dns
 
 import (
-	"fmt"
 	"testing"
 	// "github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -51,6 +50,18 @@ func TestFindRecordByID(t *testing.T) {
 	}
 }
 
+func TestConvTTL(t *testing.T) {
+	ttl := 120
+	expTTL := convTTL(ttl)
+	if reflect.TypeOf(expTTL).String() != "string" {
+		t.Fatalf("Expected newTTL Type: %v - Got %v", "String", reflect.TypeOf(expTTL).String())
+	}
+
+	if expTTL != "120" {
+		t.Fatalf("Expected newTTL: %v - Got %v", "120", expTTL)
+	}
+}
+
 func TestDiffRecord(t *testing.T) {
 	setupViper()
 	r := setupRecordForTest()
@@ -64,7 +75,10 @@ func TestDiffRecord(t *testing.T) {
 		Proxied: false,
 	}
 
-	fmt.Println(reflect.TypeOf(newR))
+	if reflect.TypeOf(newR).String() != "cloudflare.DNSRecord" {
+		t.Fatalf("Expected result construct: %v - Got %v", "cloudflare.DNSRecord", reflect.TypeOf(newR).String())
+	}
+
 	if newR.Name != expectR.Name {
 		t.Fatalf("Expected Name: %v - Got %v", expectR.Name, newR.Name)
 	}

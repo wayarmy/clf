@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"clf/authen"
+	"github.com/wayarmy/clf/authen"
 	"log"
 	"os"
 	"github.com/cloudflare/cloudflare-go"
@@ -38,7 +38,6 @@ func getZoneID(zoneName string) (string, error) {
 		log.Fatal(errZoneID)
 		os.Exit(0)
 	}
-
 	return zoneID, nil
 }
 
@@ -51,7 +50,6 @@ func getListRecord(zoneID string) ([]cloudflare.DNSRecord, error) {
 		log.Fatal(errRecs)
 		os.Exit(0)
 	}
-
 	return records, nil
 }
 

@@ -15,7 +15,7 @@
 package main
 
 import (
-	"clf/cmd"
+	"github.com/wayarmy/clf/cmd"
 )
 
 

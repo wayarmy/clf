@@ -1,8 +1,5 @@
 language: go
 
-go:
-  - 1.9.x
-  - master
 before_script:
   - sudo add-apt-repository ppa:masterminds/glide -y
   - sudo apt-get update -q

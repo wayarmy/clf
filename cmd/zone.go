@@ -18,7 +18,7 @@ import (
 	// "github.com/spf13/viper"
 	"github.com/spf13/cobra"
 	"fmt"
-	"clf/zone"
+	"github.com/wayarmy/clf/zone"
 )
 
 // zoneCmd represents the zone command

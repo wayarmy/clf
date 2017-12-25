@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"clf/dns"
+	"github.com/wayarmy/clf/dns"
 )
 
 // dnsCmd represents the dns command
