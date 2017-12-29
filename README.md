@@ -5,7 +5,7 @@
 
 ### Usage
 
-```
+```console
 ➜  ~ clf --help
 This CLI will help you manage Cloudflare resource, such as DNS record, Zone..
 	Example:
