@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/wayarmy/clf.svg?branch=master)](https://travis-ci.org/wayarmy/clf)
+[![Maintainance](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/wayarmy/clf)
 # CLF
 
 > Cloudflare CLI, you can use this cli for manage your resource on cloudflare CDN
